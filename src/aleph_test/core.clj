@@ -17,6 +17,9 @@
   (GET "/events" []
     {:headers {"Content-Type" "text/event-stream"}
      :body sse-channel})
+  (GET "/hello" []
+    {:headers {"Content-Type" "text/xml"}
+     :body "Hello, world!"})
   (POST "/trigger" []
     {:status 202
      :headers {"Content-Type" "text/plain"}
@@ -27,6 +30,8 @@
 
 (defn -main
   [& args]
+  (println "Starting server")
   (start-http-server (wrap-ring-handler app)
     {:port 3000
-     :netty {"tcpNoDelay" true}}))
+     :netty {"tcpNoDelay" true}})
+  (println "Started on port 3000"))
